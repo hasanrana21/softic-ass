@@ -18,7 +18,7 @@ const Card = (props) => {
         <div key={key} className="border-2 border-primary-3/50 py-4 rounded">
           <div className="h-56 px-4">
             <Link href={`/posts/details/${post?.id}`}>
-              <h3 className="text-lg font-medium mb-3 underline">
+              <h3 className="text-lg font-medium mb-3 underline text-primary-2/70">
                 {wordLimit(post?.title)}
               </h3>
             </Link>
@@ -28,7 +28,7 @@ const Card = (props) => {
             <span className="bg-primary-1 px-4 py-1 rounded cursor-pointer mdi mdi-comment-text-multiple-outline text-white">
               Comment
             </span>
-            <span className="bg-primary-2 px-4 py-1 rounded cursor-pointer mdi mdi-comment-text-multiple-outline text-white">
+            <span className="bg-primary-2/70 px-4 py-1 rounded cursor-pointer mdi mdi-comment-text-multiple-outline text-white">
               Delete
             </span>
           </div>
