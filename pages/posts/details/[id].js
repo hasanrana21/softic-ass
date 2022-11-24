@@ -1,42 +1,35 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import MainLayout from "@/components/layouts/MainLayout";
-import axios from "axios";
 import Loader from "@/components/ui/loader";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  postFetch,
+  userFetch,
+  commentsFetch,
+} from "../../../store/actions/postsAction";
 
 const Details = () => {
+  const dispatch = useDispatch();
+  const { user_post, user, all_comments } = useSelector((state) => state.Posts);
   const router = useRouter();
   const { id } = router.query;
-  const [post, setPost] = useState({});
-  const [user, setUser] = useState({});
   const [comments, setComments] = useState([]);
   const [fetching, setFetching] = useState(false);
   const fetchPost = () => {
-    return axios
-      .get(`https://jsonplaceholder.typicode.com/posts/${id}`)
-      .then((res) => {
-        // console.log("siglePost", res.data);
-        setPost(res?.data);
-      });
+    dispatch(postFetch(id));
   };
   const fetchUser = () => {
-    return axios
-      .get(`https://jsonplaceholder.typicode.com/users/${id}`)
-      .then((res) => {
-        setUser(res.data);
-      });
+    dispatch(userFetch(id));
   };
 
-  const fetchComments = () => {
-    return axios
-      .get("https://jsonplaceholder.typicode.com/comments")
-      .then((res) => {
-        const data = res.data;
-        const allComments = data.filter(
-          (item) => item?.postId === parseInt(id)
-        );
-        setComments(allComments);
-      });
+  const fetchComments = async () => {
+    await dispatch(commentsFetch());
+    // console.log("all_comments22", all_comments);
+    const allComments = all_comments.filter(
+      (item) => item?.postId === parseInt(id)
+    );
+    setComments(allComments);
   };
   const initialFetch = async () => {
     setFetching(true);
@@ -74,9 +67,9 @@ const Details = () => {
           {/* POST DETAILS */}
           <div className="border-b border-primary-3 pb-7">
             <h3 className="text-xl font-medium mb-3 text-primary-2/70">
-              {post?.title}
+              {user_post?.title}
             </h3>
-            <p className="text-lg">{post?.body}</p>
+            <p className="text-lg">{user_post?.body}</p>
           </div>
 
           {/* COMMENTS SECTION */}
