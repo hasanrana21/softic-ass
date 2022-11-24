@@ -25,9 +25,12 @@ const Card = (props) => {
             <p>{wordLimit(post?.body)}</p>
           </div>
           <div className="flex items-center justify-between mt-6 pt-2 px-4 border-t border-primary-3">
-            <span className="bg-primary-1 px-4 py-1 rounded cursor-pointer mdi mdi-comment-text-multiple-outline text-white">
-              Comment
-            </span>
+            <Link
+              href={`/posts/details/${post?.id}`}
+              className="bg-primary-1 px-4 py-1 rounded cursor-pointer mdi mdi-comment-text-multiple-outline text-white"
+            >
+              <span>Comment</span>
+            </Link>
             <span className="bg-primary-2/70 px-4 py-1 rounded cursor-pointer mdi mdi-comment-text-multiple-outline text-white">
               Delete
             </span>
