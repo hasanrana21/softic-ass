@@ -13,7 +13,6 @@ export default function Home() {
   const [fetching, setFetching] = useState(false);
   const [pages, setPages] = useState(null);
   const [perPage] = useState(20);
-  // const [currentPage, setCurrentPage] = useState(1);
   const fetchPosts = () => {
     dispatch(userPosts());
     const pagesNum = all_post.length / perPage;
@@ -29,19 +28,18 @@ export default function Home() {
     });
   };
 
-  const handleCurrentPage = (currentPage) => {
-    // console.log("rrr", index);
-    // setCurrentPage(index);
+  const handlePaginate = (currentPage) => {
     const startCount = currentPage * perPage - perPage;
     const endCount = currentPage * perPage;
     const paginatedPosts = all_post.slice(startCount, endCount);
     setShowPosts(paginatedPosts);
   };
 
-  // const handlePaginate = () => {
-  //   const startCount =
-  //   all_post = all_post.slice(currentPage * perPage, currentPage * perPage);
-  // };
+  const handleDelete = (id) => {
+    const postDeleted = showPosts.filter((post) => post?.id !== parseInt(id));
+    setShowPosts(postDeleted);
+  };
+  // console.log("gg", showPosts);
 
   useEffect(() => {
     initialFetch();
@@ -53,9 +51,9 @@ export default function Home() {
       ) : (
         <div className="px-6 py-4">
           <div className="flex justify-end">
-            <Pagination pages={pages} handleCurrentPage={handleCurrentPage} />
+            <Pagination pages={pages} handlePaginate={handlePaginate} />
           </div>
-          <Card posts={showPosts} />
+          <Card posts={showPosts} handleDelete={handleDelete} />
         </div>
       )}
     </MainLayout>

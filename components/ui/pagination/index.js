@@ -10,7 +10,7 @@ const Pagination = (props) => {
         <li
           key={i}
           className="text-xl px-4 py-1 bg-primary-1 cursor-pointer text-white rounded"
-          onClick={() => props.handleCurrentPage(i + 1)}
+          onClick={() => props.handlePaginate(i + 1)}
         >
           {i + 1}
         </li>
