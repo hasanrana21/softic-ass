@@ -4,6 +4,7 @@ const initialState = {
   user_post: {},
   user: {},
   all_comments: [],
+  user_photo: {},
 };
 
 export const postsReducer = (state = initialState, action) => {
@@ -33,6 +34,13 @@ export const postsReducer = (state = initialState, action) => {
     return {
       ...state,
       all_comments: payload.all_comments,
+      fetching: payload.fetching,
+    };
+  }
+  if (type === "SET_PHOTOS") {
+    return {
+      ...state,
+      user_photo: payload.user_photo,
       fetching: payload.fetching,
     };
   }

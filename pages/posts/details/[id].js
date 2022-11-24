@@ -7,11 +7,14 @@ import {
   postFetch,
   userFetch,
   commentsFetch,
+  showPosts,
 } from "../../../store/actions/postsAction";
 
 const Details = () => {
   const dispatch = useDispatch();
-  const { user_post, user, all_comments } = useSelector((state) => state.Posts);
+  const { user_post, user, all_comments, user_photo } = useSelector(
+    (state) => state.Posts
+  );
   const router = useRouter();
   const { id } = router.query;
   const [comments, setComments] = useState([]);
@@ -31,13 +34,21 @@ const Details = () => {
     );
     setComments(allComments);
   };
+
+  const fetchPhotos = async () => {
+    await dispatch(showPosts(id));
+  };
+
   const initialFetch = async () => {
     setFetching(true);
-    await Promise.all([fetchPost(), fetchUser(), fetchComments()]).finally(
-      () => {
-        setFetching(false);
-      }
-    );
+    await Promise.all([
+      fetchPost(),
+      fetchUser(),
+      fetchComments(),
+      fetchPhotos(),
+    ]).finally(() => {
+      setFetching(false);
+    });
   };
 
   useEffect(() => {
@@ -52,7 +63,7 @@ const Details = () => {
           {/* USER DETAILS */}
           <div className="flex space-x-4 mb-7">
             <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVWT916ZIZzh7ZTuRB9cq3yVWptueIy-eKYw&usqp=CAU"
+              src={user_photo?.thumbnailUrl}
               alt=""
               className="w-12 h-12 rounded-full aspect-[4/3]"
             />
@@ -69,7 +80,8 @@ const Details = () => {
             <h3 className="text-xl font-medium mb-3 text-primary-2/70">
               {user_post?.title}
             </h3>
-            <p className="text-lg">{user_post?.body}</p>
+            <p className="text-lg mb-3">{user_post?.body}</p>
+            <img src={user_photo?.url} alt="" className="h-56 w-full mx-auto" />
           </div>
 
           {/* COMMENTS SECTION */}
@@ -80,9 +92,9 @@ const Details = () => {
                 key={key}
                 className="grid grid-flow-row grid-cols-12 mb-5 w-[90%]"
               >
-                <div className="col-span-1 w-12 h-12 rounded-full bg-primary-1"></div>
+                <div className="col-span-1 w-12 h-12"></div>
                 <div className="col-span-11 px-4 py-2 rounded-lg bg-primary-3/10">
-                  <h5 className="text-lg font-medium mb-2 text-primary-1">
+                  <h5 className="text-lg font-medium mb-1 text-primary-1">
                     {comment?.name}
                   </h5>
                   <p className="text-primary-3/80 mb-4">{comment?.email}</p>

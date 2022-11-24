@@ -63,3 +63,19 @@ export const commentsFetch = () => async (dispatch) => {
       });
   } catch (error) {}
 };
+
+export const showPosts = (id) => async (dispatch) => {
+  try {
+    return await axios
+      .get(`https://jsonplaceholder.typicode.com/photos/${id}`)
+      .then((res) => {
+        dispatch({
+          type: "SET_PHOTOS",
+          payload: {
+            user_photo: res.data,
+            fetching: false,
+          },
+        });
+      });
+  } catch (error) {}
+};
