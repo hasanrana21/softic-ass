@@ -19,7 +19,7 @@ const Navbar = () => {
           </li>
         </Link>
         <li className="text-base px-4 py-2 cursor-pointer rounded w-32 text-white hover:bg-primary-1 text-center">
-          ABout
+          About
         </li>
         <li className="text-base px-4 py-2 cursor-pointer rounded w-32 text-white hover:bg-primary-1 text-center">
           Career
