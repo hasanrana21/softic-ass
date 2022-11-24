@@ -7,7 +7,6 @@ export default function Home() {
   const [allPost, setAllPost] = useState([]);
   const fetchPosts = () => {
     axios.get("https://jsonplaceholder.typicode.com/posts").then((res) => {
-      console.log("res", res.data);
       setAllPost(res.data);
     });
   };
