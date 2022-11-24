@@ -3,18 +3,15 @@
   position: relative;
   -webkit-animation: 1.2s grow ease-in-out infinite;
   animation: 1.2s grow ease-in-out infinite;
-  @apply text-primary-2;
 }
 .dot-loader--2 {
   -webkit-animation: 1.2s grow ease-in-out infinite 0.15555s;
   animation: 1.2s grow ease-in-out infinite 0.15555s;
   margin: 0 10px;
-  @apply text-primary-2;
 }
 .dot-loader--3 {
   -webkit-animation: 1.2s grow ease-in-out infinite 0.3s;
   animation: 1.2s grow ease-in-out infinite 0.3s;
-  @apply text-primary-2;
 }
 @-webkit-keyframes grow {
   0%,
